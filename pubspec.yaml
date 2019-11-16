@@ -1,0 +1,11 @@
+name: sorted_list
+description: A dart sorted list that keeps its elements ordered in the specified sequence.
+version: 0.1.0
+author: Gaurav Shah
+homepage: https://github.com/shah-gaurav/dart-sorted-list
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  collection: ^1.14.11
