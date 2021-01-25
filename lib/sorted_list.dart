@@ -102,4 +102,11 @@ class SortedList<E> extends DelegatingList<E> {
     throw NotSupportedException(
         'Cannot modify multiple elements at a specific position in a sorted list');
   }
+
+  @deprecated
+  @override
+  void fillRange(int start, int end, [E fillValue]) {
+    throw NotSupportedException(
+        'Cannot modify multiple elements at a specific position in a sorted list');
+  }
 }
