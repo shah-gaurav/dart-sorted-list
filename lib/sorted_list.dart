@@ -75,7 +75,7 @@ class SortedList<E> extends DelegatingList<E> {
     if (firstIndex == length - 1 || firstIndex == -1) return firstIndex;
     int index;
     E current, next;
-    // If the elemtent occurs more than once, this loop will find
+    // If the element occurs more than once, this loop will find
     // its last index
     for (index = firstIndex; index < rangeEnd - 1; index++) {
       current = this[index];
