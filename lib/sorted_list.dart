@@ -167,4 +167,10 @@ class SortedList<E> extends DelegatingList<E> {
   void replaceRange(int start, int end, Iterable<E> iterable) {
     _listBase.replaceRange(start, end, iterable);
   }
+
+  @Deprecated(
+      'This method is not supported since it does not allow the list to stay ordered.')
+  void shuffle([Random random]) {
+    throw NotSupportedException('Cannot shuffle elements in a sorted list');
+  }
 }
