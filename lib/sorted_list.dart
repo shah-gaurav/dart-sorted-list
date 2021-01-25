@@ -1,5 +1,7 @@
 library sorted_list;
 
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:sorted_list/exceptions.dart';
 
@@ -157,5 +159,12 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   void sort([int compare(E a, E b)]) {
     _listBase.sort(_compareFunction);
+  }
+
+  @Deprecated(
+      'This method is not supported since it does not allow the list to stay ordered, consider using the removeRange method with the AddAll method.')
+  @override
+  void replaceRange(int start, int end, Iterable<E> iterable) {
+    _listBase.replaceRange(start, end, iterable);
   }
 }
