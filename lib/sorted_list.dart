@@ -6,13 +6,13 @@ import 'package:collection/collection.dart';
 import 'package:sorted_list/exceptions.dart';
 
 class SortedList<E> extends DelegatingList<E> {
-  int Function(E a, E b) _compareFunction;
+  final int Function(E a, E b) _compareFunction;
 
   List<E> get _listBase => super.toList();
 
-  SortedList(int Function(E a, E b) compareFunction) : super(<E>[]) {
-    this._compareFunction = compareFunction;
-  }
+  SortedList(int Function(E a, E b) compareFunction)
+      : _compareFunction = compareFunction,
+        super(<E>[]);
 
   /// Finds the index where [value] should be inserted
   int _findInsertionIndex(E value) {
