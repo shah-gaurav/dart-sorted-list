@@ -171,6 +171,6 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not supported since it does not allow the list to stay ordered.')
   void shuffle([Random random]) {
-    throw NotSupportedException('Cannot shuffle elements in a sorted list');
+    throw NotSupportedException('Cannot shuffle elements in a sorted list.');
   }
 }
