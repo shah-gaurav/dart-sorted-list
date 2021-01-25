@@ -11,16 +11,44 @@ class SortedList<E> extends DelegatingList<E> {
     this._compareFunction = compareFunction;
   }
 
+  /// Finds the index where [value] should be inserted
+  int _findInsertionIndex(E value) {
+    if (length == 0) return 0;
+    var start = 0;
+    var end = length;
+    var index = 0;
+    while (start < end) {
+      final mid = start + ((end - start) >> 1);
+
+      // The element at the middle of the list
+      final element = this[mid];
+
+      // The result of the comparison of the objects
+      final comp = _compareFunction(element, value);
+      if (comp == 0) return mid;
+      // [value] is greater than [element]
+      if (comp < 0) {
+        start = mid + 1;
+        index = start;
+      }
+      // [value] is smaller than [element]
+      else {
+        end = mid;
+        index = end;
+      }
+    }
+    return index;
+  }
+
   @override
   void add(E value) {
-    super.add(value);
-    sort(_compareFunction);
+    final index = _findInsertionIndex(value);
+    super.insert(index, value);
   }
 
   @override
   void addAll(Iterable<E> iterable) {
-    super.addAll(iterable);
-    sort(_compareFunction);
+    for (final value in iterable) add(value);
   }
 
   @override
