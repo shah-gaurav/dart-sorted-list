@@ -105,50 +105,50 @@ class SortedList<E> extends DelegatingList<E> {
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the Add method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the Add method.')
   @override
   void insert(int index, E element) {
     throw NotSupportedException(
-        'Cannot insert element at a specific position in a sorted list');
+        'Cannot insert element at a specific position in a sorted list.');
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void insertAll(int index, Iterable<E> iterable) {
     throw NotSupportedException(
-        'Cannot insert multiple elements at a specific position in a sorted list');
+        'Cannot insert multiple elements at a specific position in a sorted list.');
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the Add method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the Add method.')
   @override
   void operator []=(int index, E value) {
     throw NotSupportedException(
-        'Cannot modify element at a specific position in a sorted list');
+        'Cannot modify element at a specific position in a sorted list.');
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void setAll(int index, Iterable<E> iterable) {
     throw NotSupportedException(
-        'Cannot modify multiple elements at a specific position in a sorted list');
+        'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]) {
     throw NotSupportedException(
-        'Cannot modify multiple elements at a specific position in a sorted list');
+        'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
   @Deprecated(
-      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method')
+      'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void fillRange(int start, int end, [E fillValue]) {
     throw NotSupportedException(
-        'Cannot modify multiple elements at a specific position in a sorted list');
+        'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 }
