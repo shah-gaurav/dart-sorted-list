@@ -61,6 +61,30 @@ class SortedList<E> extends DelegatingList<E> {
     }
   }
 
+  int indexOf(E element, [int start = 0]) {
+    final sortedList = start == 0 ? this : getRange(start, length).toList();
+    return binarySearch(sortedList, element, compare: _compareFunction);
+  }
+
+  int lastIndexOf(E element, [int start]) {
+    // Add one to [start] to make the value at its index included in the search
+    final rangeEnd = start == null || start + 1 >= length ? length : start + 1;
+    final sortedList = start == null ? this : getRange(0, rangeEnd).toList();
+    final firstIndex =
+        binarySearch(sortedList, element, compare: _compareFunction);
+    if (firstIndex == length - 1 || firstIndex == -1) return firstIndex;
+    int index;
+    E current, next;
+    // Finds the last index of the element using its first index
+    // It only works because the list is sorted
+    for (index = firstIndex; index < rangeEnd - 1; index++) {
+      current = this[index];
+      next = this[index + 1];
+      if (_compareFunction(current, next) != 0) break;
+    }
+    return index;
+  }
+
   @override
   List<E> operator +(List<E> other) {
     var returnList = (_listBase + (other));
