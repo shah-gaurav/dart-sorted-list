@@ -151,4 +151,11 @@ class SortedList<E> extends DelegatingList<E> {
     throw NotSupportedException(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
+
+  @Deprecated(
+      'This method is not necessary, the list already auto sorts itself. The `compare` parameter will not be used if this method is called, instead will be used the `compareFunction`, which was passed to the constructor as a parameter.')
+  @override
+  void sort([int compare(E a, E b)]) {
+    _listBase.sort(_compareFunction);
+  }
 }
