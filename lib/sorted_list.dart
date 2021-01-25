@@ -52,6 +52,15 @@ class SortedList<E> extends DelegatingList<E> {
   }
 
   @override
+  bool contains(Object element) {
+    if (element is E) {
+      return binarySearch(this, element, compare: _compareFunction) > 0;
+    } else {
+      return super.contains(element);
+    }
+  }
+
+  @override
   List<E> operator +(List<E> other) {
     var returnList = (_listBase + (other));
     returnList.sort(_compareFunction);
