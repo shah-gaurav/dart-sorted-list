@@ -62,8 +62,20 @@ class SortedList<E> extends DelegatingList<E> {
   }
 
   int indexOf(E element, [int start = 0]) {
-    final sortedList = start == 0 ? this : getRange(start, length).toList();
-    return binarySearch(sortedList, element, compare: _compareFunction);
+    final rangeStart = start >= length ? length - 1 : start;
+    final sortedList =
+        start == 0 ? this : getRange(rangeStart, length).toList();
+    var index = binarySearch(sortedList, element, compare: _compareFunction);
+    if (index < 0) return -1;
+    // If the element occurs more than once, this loop will find
+    // its first index
+    E current, previous;
+    for (; index > start + 1; index--) {
+      current = this[index];
+      previous = this[index - 1];
+      if (_compareFunction(current, previous) != 0) break;
+    }
+    return index;
   }
 
   int lastIndexOf(E element, [int start]) {
