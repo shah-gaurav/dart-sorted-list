@@ -6,7 +6,7 @@ A dart sorted list that keeps its elements ordered in the specified sequence.
 
 SortedList extends DelegatingList so you can use it directly as a replacement for List anywhere in your code where you need to keep items in the list sorted by a particular order.
 
-SortedList sorts the items when they are inserted in the list so the inserts are slower, but the retrieval of items in a sorted order is faster.
+SortedList uses binary search to insert the items on the correct positions in the list so the inserts may be a bit slower, but the difference should'nt be noticeable.
 
 SortedList doesn't support inserting items at a particular index. The items should always be inserted where they fall in the sorting order rather than at a particular index.
 
