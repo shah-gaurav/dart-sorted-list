@@ -86,10 +86,10 @@ class SortedList<E> extends DelegatingList<E> {
     if (index < 0) return -1;
     // If the element occurs more than once, this loop will find
     // its first index
-    E current, previous;
-    for (; index > start + 1; index--) {
+    E current = this[index], previous;
+    for (; index > start; index--) {
+      previous = current;
       current = this[index];
-      previous = this[index - 1];
       if (_compareFunction(current, previous) != 0) break;
     }
     return index;
@@ -100,14 +100,12 @@ class SortedList<E> extends DelegatingList<E> {
     // Add one to [start] to make the value at its index included in the search
     final rangeEnd = start == null || start + 1 >= length ? length : start + 1;
     final sortedList = start == null ? this : getRange(0, rangeEnd).toList();
-    final firstIndex =
-        binarySearch(sortedList, element, compare: _compareFunction);
-    if (firstIndex == length - 1 || firstIndex == -1) return firstIndex;
-    int index;
+    var index = binarySearch(sortedList, element, compare: _compareFunction);
+    if (index == length - 1 || index == -1) return index;
     E current, next;
     // If the element occurs more than once, this loop will find
     // its last index
-    for (index = firstIndex; index < rangeEnd - 1; index++) {
+    for (; index < rangeEnd - 1; index++) {
       current = this[index];
       next = this[index + 1];
       if (_compareFunction(current, next) != 0) break;
