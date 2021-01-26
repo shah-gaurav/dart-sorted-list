@@ -51,7 +51,17 @@ class SortedList<E> extends DelegatingList<E> {
 
   @override
   void addAll(Iterable<E> iterable) {
-    for (final value in iterable) add(value);
+    final list = iterable.toList();
+    list.sort(_compareFunction);
+    var index = 0;
+    // merge the two sorted lists with merge sort logic
+    for (var i = 0; i < length; i++) {
+      final comp = _compareFunction(this[i], list[index]);
+      if (comp >= 0) {
+        super.insert(index, list[index]);
+        index++;
+      }
+    }
   }
 
   @override
