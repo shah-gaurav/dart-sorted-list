@@ -59,7 +59,7 @@ class SortedList<E> extends DelegatingList<E> {
       for (var i = 0; i < length; i++) {
         final comp = _compareFunction(this[i], list[index]);
         if (comp >= 0) {
-          super.insert(index, list[index]);
+          super.insert(i, list[index]);
           index++;
         }
       }
