@@ -63,6 +63,7 @@ class SortedList<E> extends DelegatingList<E> {
     }
   }
 
+  @override
   int indexOf(E element, [int start = 0]) {
     final rangeStart = start >= length ? length - 1 : start;
     final sortedList =
@@ -80,6 +81,7 @@ class SortedList<E> extends DelegatingList<E> {
     return index;
   }
 
+  @override
   int lastIndexOf(E element, [int start]) {
     // Add one to [start] to make the value at its index included in the search
     final rangeEnd = start == null || start + 1 >= length ? length : start + 1;
@@ -170,6 +172,7 @@ class SortedList<E> extends DelegatingList<E> {
 
   @Deprecated(
       'This method is not supported since it does not allow the list to stay ordered.')
+  @override
   void shuffle([Random random]) {
     throw NotSupportedException('Cannot shuffle elements in a sorted list.');
   }
