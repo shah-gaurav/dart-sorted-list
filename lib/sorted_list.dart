@@ -77,6 +77,7 @@ class SortedList<E> extends DelegatingList<E> {
     }
   }
 
+  // TODO: use a custom binary search to increase speed in edge cases
   @override
   int indexOf(E element, [int start = 0]) {
     final rangeStart = start >= length ? length - 1 : start;
@@ -95,6 +96,7 @@ class SortedList<E> extends DelegatingList<E> {
     return index;
   }
 
+  // TODO: use a custom binary search to increase speed in edge cases
   @override
   int lastIndexOf(E element, [int start]) {
     // Add one to [start] to make the value at its index included in the search
@@ -102,12 +104,12 @@ class SortedList<E> extends DelegatingList<E> {
     final sortedList = start == null ? this : getRange(0, rangeEnd).toList();
     var index = binarySearch(sortedList, element, compare: _compareFunction);
     if (index == length - 1 || index == -1) return index;
-    E current, next;
+    E current, next = this[index];
     // If the element occurs more than once, this loop will find
     // its last index
     for (; index < rangeEnd - 1; index++) {
-      current = this[index];
-      next = this[index + 1];
+      current = next;
+      next = this[index];
       if (_compareFunction(current, next) != 0) break;
     }
     return index;
@@ -172,7 +174,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not necessary, the list already auto sorts itself. The `compare` parameter will not be used if this method is called, instead will be used the `compareFunction`, which was passed to the constructor as a parameter.')
   @override
   void sort([int compare(E a, E b)]) {
-    _listBase.sort(_compareFunction);
+    super.sort(_compareFunction);
   }
 
   @Deprecated(
