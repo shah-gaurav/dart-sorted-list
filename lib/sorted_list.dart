@@ -181,7 +181,8 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the removeRange method with the AddAll method.')
   @override
   void replaceRange(int start, int end, Iterable<E> iterable) {
-    _listBase.replaceRange(start, end, iterable);
+    throw NotSupportedException(
+        'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
   @Deprecated(
