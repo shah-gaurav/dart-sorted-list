@@ -3,7 +3,6 @@ library sorted_list;
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:sorted_list/exceptions.dart';
 
 /// A list capable of keeping itself sorted according to its compare function
 ///
@@ -209,7 +208,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the Add method.')
   @override
   void insert(int index, E element) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot insert element at a specific position in a sorted list.');
   }
 
@@ -217,7 +216,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void insertAll(int index, Iterable<E> iterable) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot insert multiple elements at a specific position in a sorted list.');
   }
 
@@ -225,7 +224,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the Add method.')
   @override
   void operator []=(int index, E value) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot modify element at a specific position in a sorted list.');
   }
 
@@ -233,7 +232,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void setAll(int index, Iterable<E> iterable) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
@@ -241,7 +240,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
@@ -249,7 +248,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
   void fillRange(int start, int end, [E fillValue]) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
@@ -264,7 +263,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered, consider using the removeRange method with the AddAll method.')
   @override
   void replaceRange(int start, int end, Iterable<E> iterable) {
-    throw NotSupportedException(
+    throw UnsupportedError(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
 
@@ -272,6 +271,6 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not supported since it does not allow the list to stay ordered.')
   @override
   void shuffle([Random random]) {
-    throw NotSupportedException('Cannot shuffle elements in a sorted list.');
+    throw UnsupportedError('Cannot shuffle elements in a sorted list.');
   }
 }
