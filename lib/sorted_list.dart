@@ -62,7 +62,7 @@ class SortedList<E> extends DelegatingList<E> {
         }
       }
     } else {
-      super.addAll(iterable);
+      super.addAll(list);
     }
   }
 
