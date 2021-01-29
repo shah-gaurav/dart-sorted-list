@@ -5,12 +5,28 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:sorted_list/exceptions.dart';
 
+/// A list capable of keeping itself sorted according to its compare function
+///
+///
 class SortedList<E> extends DelegatingList<E> {
   final int Function(E a, E b) _compareFunction;
 
+  /// Creates a list that keeps itself sorted.
+  ///
+  /// [compareFunction] is used to determine the sort order of the elements.
+  /// The [Comparable.compareTo] function is used by default.
   SortedList([int Function(E a, E b) compareFunction])
       : _compareFunction = compareFunction ?? Comparable.compare,
         super(<E>[]);
+
+  /// Creates a [SortedList] that contains all the elements of [elements]
+  ///
+  /// [compareFunction] is used to determine the sort order of the elements, if [null], [Comparable.compareTo] is used
+  factory SortedList.from({
+    Iterable<E> elements,
+    Comparator<E> compareFunction,
+  }) =>
+      SortedList(compareFunction)..addAll(elements);
 
   /// Finds the index where [value] should be inserted
   int _findInsertionIndex(E value) {
@@ -41,12 +57,30 @@ class SortedList<E> extends DelegatingList<E> {
     return index;
   }
 
+  /// Adds [value] to the list, extending the length by one.
+  ///
+  ///     SortedList<int> values = SortedList<int>();
+  ///     values.add(6);
+  ///     values.add(2);
+  ///     values.add(10);
+  ///     print(values); // [2, 6, 10]
+  ///
+  /// If you want to insert a large amount of items, consider using [AddAll]:
+  ///
+  ///     Sorted<int> values =SortedList<int>();
+  ///     values.addAll(myVeryLongList);
+  ///
   @override
   void add(E value) {
     final index = _findInsertionIndex(value);
     super.insert(index, value);
   }
 
+  /// Adds all objects of [iterable] to this list.
+  ///
+  /// Extends the length of the list by the number of objects in [iterable].
+  ///
+  /// Its more efficient than calling [Add] multiple times for large amounts of items.
   @override
   void addAll(Iterable<E> iterable) {
     final list = iterable.toList();
@@ -66,6 +100,12 @@ class SortedList<E> extends DelegatingList<E> {
     }
   }
 
+  /// Returns true if this list contains an element equal to [element]
+  ///
+  /// This operation will make a binary search to check if [element] is in this list.
+  ///
+  /// The equality used to determine whether [element] is equal to an element of
+  /// the iterable is defined by the [compare] function of this list
   @override
   bool contains(Object element) {
     if (element is E) {
@@ -75,7 +115,22 @@ class SortedList<E> extends DelegatingList<E> {
     }
   }
 
-  // TODO: use a custom binary search to increase speed in edge cases
+  /// Returns the first index of [element] in this list.
+  ///
+  /// Searches the list from index [start] to the end of the list.
+  /// The first time an object [:o:] is encountered so that [compare(o, element) == 0],
+  /// the index of [:o:] is returned.
+  ///
+  ///     SortedList<String> values = SortedList<String>((a, b) => a.compareTo(b));
+  ///     values.addAll(['foo', 'bar', 'baz', 'foo', 'bar']);
+  ///     print(values); // [bar, bar, baz, foo, foo]
+  ///     print(values.indexOf('foo')); // 3
+  ///     print(values.indexOf('foo', 4)); // 4
+  ///
+  /// Returns -1 if [element] is not found.
+  ///
+  ///     values.indexOf('something');    // -1
+  ///
   @override
   int indexOf(E element, [int start = 0]) {
     final rangeStart = start >= length ? length - 1 : start;
@@ -97,6 +152,25 @@ class SortedList<E> extends DelegatingList<E> {
     }
     return found ? min : -1;
   }
+
+  /// Returns the last index of [element] in this list.
+  ///
+  /// Searches the list from index 0 to [end].
+  ///
+  /// The first time an object [:o:] is encountered so that [:compare(:o:, element):],
+  /// the index of [:o:] is returned.
+  ///     SortedList<String> values = SortedList<String>();
+  ///     values.addAll(['foo', 'bar', 'baz', 'foo', 'bar']);
+  ///     print(values.lastIndexOf('bar)); // 1
+  ///
+  /// If [end] is not provided, this method searches from the end of the
+  /// list.
+  ///
+  ///     print(notes.lastIndexOf('baz'));  // 4
+  ///
+  /// Returns -1 if [element] is not found.
+  ///
+  ///     notes.lastIndexOf('something');  // -1
 
   @override
   int lastIndexOf(E element, [int end]) {
@@ -120,6 +194,10 @@ class SortedList<E> extends DelegatingList<E> {
     return found ? max - 1 : -1;
   }
 
+  /// Returns the concatenation of this list and [other].
+  ///
+  /// Returns a new list containing the elements of this list with
+  /// the elements of [other], all sorted.
   @override
   List<E> operator +(List<E> other) {
     final returnList = super + other;
