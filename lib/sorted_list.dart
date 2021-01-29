@@ -8,8 +8,6 @@ import 'package:sorted_list/exceptions.dart';
 class SortedList<E> extends DelegatingList<E> {
   final int Function(E a, E b) _compareFunction;
 
-  List<E> get _listBase => super.toList();
-
   SortedList(int Function(E a, E b) compareFunction)
       : _compareFunction = compareFunction,
         super(<E>[]);
@@ -117,7 +115,7 @@ class SortedList<E> extends DelegatingList<E> {
 
   @override
   List<E> operator +(List<E> other) {
-    var returnList = (_listBase + (other));
+    final returnList = super + other;
     returnList.sort(_compareFunction);
     return returnList;
   }
