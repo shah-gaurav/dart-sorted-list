@@ -54,7 +54,7 @@ class SortedList<E> extends DelegatingList<E> {
     var index = 0;
     if (length > 0) {
       // merge the two sorted lists with merge sort logic
-      for (var i = 0; i < length; i++) {
+      for (var i = 0; i < length && index < list.length; i++) {
         final comp = _compareFunction(this[i], list[index]);
         if (comp >= 0) {
           super.insert(i, list[index]);
