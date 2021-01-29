@@ -8,8 +8,8 @@ import 'package:sorted_list/exceptions.dart';
 class SortedList<E> extends DelegatingList<E> {
   final int Function(E a, E b) _compareFunction;
 
-  SortedList(int Function(E a, E b) compareFunction)
-      : _compareFunction = compareFunction,
+  SortedList([int Function(E a, E b) compareFunction])
+      : _compareFunction = compareFunction ?? Comparable.compare,
         super(<E>[]);
 
   /// Finds the index where [value] should be inserted
