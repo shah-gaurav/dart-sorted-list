@@ -79,38 +79,45 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   int indexOf(E element, [int start = 0]) {
     final rangeStart = start >= length ? length - 1 : start;
-    final sortedList =
-        start == 0 ? this : getRange(rangeStart, length).toList();
-    var index = binarySearch(sortedList, element, compare: _compareFunction);
-    if (index < 0) return -1;
-    // If the element occurs more than once, this loop will find
-    // its first index
-    E current = this[index], previous;
-    for (; index > start; index--) {
-      previous = current;
-      current = this[index];
-      if (_compareFunction(current, previous) != 0) break;
+    var min = rangeStart;
+    var max = length;
+    // optimization for best case scenario
+    if (_compareFunction(this[min], element) == 0) return min;
+    var found = false;
+    // Custom implementation of binary search to find the first index of an element
+    while (min < max) {
+      final mid = min + ((max - min) >> 1);
+      final comp = _compareFunction(this[mid], element);
+      found = found || comp == 0;
+      if (comp < 0) {
+        min = mid + 1;
+      } else {
+        max = mid;
+      }
     }
-    return index;
+    return found ? min : -1;
   }
 
-  // TODO: use a custom binary search to increase speed in edge cases
   @override
   int lastIndexOf(E element, [int start]) {
-    // Add one to [start] to make the value at its index included in the search
-    final rangeEnd = start == null || start + 1 >= length ? length : start + 1;
-    final sortedList = start == null ? this : getRange(0, rangeEnd).toList();
-    var index = binarySearch(sortedList, element, compare: _compareFunction);
-    if (index == length - 1 || index == -1) return index;
-    E current, next = this[index];
-    // If the element occurs more than once, this loop will find
-    // its last index
-    for (; index < rangeEnd - 1; index++) {
-      current = next;
-      next = this[index];
-      if (_compareFunction(current, next) != 0) break;
+    final rangeEnd = start == null || start > length ? length : start;
+    var min = 0;
+    var max = rangeEnd;
+    // optimization for best case scenario
+    if (max < length && _compareFunction(this[max], element) == 0) return max;
+    var found = false;
+    // Custom implementation of binary search to find the last index of an element
+    while (min < max) {
+      final mid = min + ((max - min) >> 1);
+      final comp = _compareFunction(this[mid], element);
+      found = found || comp == 0;
+      if (comp > 0) {
+        max = mid;
+      } else {
+        min = mid + 1;
+      }
     }
-    return index;
+    return found ? max - 1 : -1;
   }
 
   @override
