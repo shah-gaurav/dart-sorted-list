@@ -99,8 +99,8 @@ class SortedList<E> extends DelegatingList<E> {
   }
 
   @override
-  int lastIndexOf(E element, [int start]) {
-    final rangeEnd = start == null || start > length ? length : start;
+  int lastIndexOf(E element, [int end]) {
+    final rangeEnd = end == null || end > length ? length : end;
     var min = 0;
     var max = rangeEnd;
     // optimization for best case scenario
