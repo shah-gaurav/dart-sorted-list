@@ -8,24 +8,24 @@ import 'package:collection/collection.dart';
 ///
 ///
 class SortedList<E> extends DelegatingList<E> {
-  final int Function(E a, E b) _compareFunction;
+  final Comparator<E> _compare;
 
   /// Creates a list that keeps itself sorted.
   ///
-  /// [compareFunction] is used to determine the sort order of the elements.
-  /// The [Comparable.compareTo] function is used by default.
-  SortedList([int Function(E a, E b) compareFunction])
-      : _compareFunction = compareFunction ?? Comparable.compare,
+  /// [compare] is used to determine the sort order of the elements.
+  /// The [Comparable.compare] function is used by default.
+  SortedList([Comparator<E> compare])
+      : _compare = compare ?? Comparable.compare,
         super(<E>[]);
 
   /// Creates a [SortedList] that contains all the elements of [elements]
   ///
-  /// [compareFunction] is used to determine the sort order of the elements, if [null], [Comparable.compareTo] is used
+  /// [compare] is used to determine the sort order of the elements, if [null], [Comparable.compareTo] is used
   factory SortedList.from({
     Iterable<E> elements,
-    Comparator<E> compareFunction,
+    Comparator<E> compare,
   }) =>
-      SortedList(compareFunction)..addAll(elements);
+      SortedList(compare)..addAll(elements);
 
   /// Finds the index where [value] should be inserted
   int _findInsertionIndex(E value) {
@@ -40,7 +40,7 @@ class SortedList<E> extends DelegatingList<E> {
       final element = this[mid];
 
       // The result of the comparison of the objects
-      final comp = _compareFunction(element, value);
+      final comp = _compare(element, value);
       if (comp == 0) return mid;
       // [value] is greater than [element]
       if (comp < 0) {
@@ -83,12 +83,12 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   void addAll(Iterable<E> iterable) {
     final list = iterable.toList();
-    list.sort(_compareFunction);
+    list.sort(_compare);
     var index = 0;
     if (length > 0) {
       // merge the two sorted lists with merge sort logic
       for (var i = 0; i < length && index < list.length; i++) {
-        final comp = _compareFunction(this[i], list[index]);
+        final comp = _compare(this[i], list[index]);
         if (comp >= 0) {
           super.insert(i, list[index]);
           index++;
@@ -108,7 +108,7 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   bool contains(Object element) {
     if (element is E) {
-      return binarySearch(this, element, compare: _compareFunction) > 0;
+      return binarySearch(this, element, compare: _compare) > 0;
     } else {
       return super.contains(element);
     }
@@ -136,12 +136,12 @@ class SortedList<E> extends DelegatingList<E> {
     var min = rangeStart;
     var max = length;
     // optimization for best case scenario
-    if (_compareFunction(this[min], element) == 0) return min;
+    if (_compare(this[min], element) == 0) return min;
     var found = false;
     // Custom implementation of binary search to find the first index of an element
     while (min < max) {
       final mid = min + ((max - min) >> 1);
-      final comp = _compareFunction(this[mid], element);
+      final comp = _compare(this[mid], element);
       found = found || comp == 0;
       if (comp < 0) {
         min = mid + 1;
@@ -177,12 +177,12 @@ class SortedList<E> extends DelegatingList<E> {
     var min = 0;
     var max = rangeEnd;
     // optimization for best case scenario
-    if (max < length && _compareFunction(this[max], element) == 0) return max;
+    if (max < length && _compare(this[max], element) == 0) return max;
     var found = false;
     // Custom implementation of binary search to find the last index of an element
     while (min < max) {
       final mid = min + ((max - min) >> 1);
-      final comp = _compareFunction(this[mid], element);
+      final comp = _compare(this[mid], element);
       found = found || comp == 0;
       if (comp > 0) {
         max = mid;
@@ -200,7 +200,7 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   List<E> operator +(List<E> other) {
     final returnList = super + other;
-    returnList.sort(_compareFunction);
+    returnList.sort(_compare);
     return returnList;
   }
 
@@ -256,7 +256,7 @@ class SortedList<E> extends DelegatingList<E> {
       'This method is not necessary, the list already auto sorts itself. The `compare` parameter will not be used if this method is called, instead will be used the `compareFunction`, which was passed to the constructor as a parameter.')
   @override
   void sort([int compare(E a, E b)]) {
-    super.sort(_compareFunction);
+    super.sort(_compare);
   }
 
   @Deprecated(
