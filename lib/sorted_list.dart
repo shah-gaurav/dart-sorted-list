@@ -20,7 +20,7 @@ class SortedList<E> extends DelegatingList<E> {
 
   /// Creates a [SortedList] that contains all the elements of [elements]
   ///
-  /// [compare] is used to determine the sort order of the elements, if [null], [Comparable.compareTo] is used
+  /// [compare] is used to determine the sort order of the elements, if [null], [Comparable.compare] is used
   factory SortedList.from({
     Iterable<E> elements,
     Comparator<E> compare,
@@ -64,9 +64,9 @@ class SortedList<E> extends DelegatingList<E> {
   ///     values.add(10);
   ///     print(values); // [2, 6, 10]
   ///
-  /// If you want to insert a large amount of items, consider using [AddAll]:
+  /// If you want to insert a large amount of items, consider using [addAll]:
   ///
-  ///     Sorted<int> values =SortedList<int>();
+  ///     Sorted<int> values = SortedList<int>();
   ///     values.addAll(myVeryLongList);
   ///
   @override
@@ -79,7 +79,7 @@ class SortedList<E> extends DelegatingList<E> {
   ///
   /// Extends the length of the list by the number of objects in [iterable].
   ///
-  /// Its more efficient than calling [Add] multiple times for large amounts of items.
+  /// Its more efficient than calling [add] multiple times for large amounts of items.
   @override
   void addAll(Iterable<E> iterable) {
     final list = iterable.toList();
