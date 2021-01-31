@@ -1,7 +1,7 @@
 import 'package:sorted_list/sorted_list.dart';
 
-main(List<String> args) {
-  var sortedList = SortedList<int>((a, b) => a.compareTo(b));
+void main(List<String> args) {
+  var sortedList = SortedList<int>();
   sortedList.add(1);
   sortedList.add(5);
   sortedList.add(3);

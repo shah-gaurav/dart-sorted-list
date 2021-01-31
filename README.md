@@ -1,6 +1,6 @@
 # Dart Sorted List
 
-A dart sorted list that keeps its elements ordered in the specified sequence.
+A dart sorted list that keeps its elements ordered according to its `compare` function.
 
 ## Getting Started
 
@@ -13,8 +13,8 @@ SortedList doesn't support inserting items at a particular index. The items shou
 ```dart
 import 'package:sorted_list/sorted_list.dart';
 
-main(List<String> args) {
-  var sortedList = SortedList<int>((a, b) => a.compareTo(b));
+void main(List<String> args) {
+  var sortedList = SortedList<int>();
   sortedList.add(1);
   sortedList.add(5);
   sortedList.add(3);
