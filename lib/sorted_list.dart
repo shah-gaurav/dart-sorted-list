@@ -120,7 +120,7 @@ class SortedList<E> extends DelegatingList<E> {
   /// The first time an object [:o:] is encountered so that [compare(o, element) == 0],
   /// the index of [:o:] is returned.
   ///
-  ///     SortedList<String> values = SortedList<String>((a, b) => a.compareTo(b));
+  ///     SortedList<String> values = SortedList<String>();
   ///     values.addAll(['foo', 'bar', 'baz', 'foo', 'bar']);
   ///     print(values); // [bar, bar, baz, foo, foo]
   ///     print(values.indexOf('foo')); // 3
@@ -158,18 +158,19 @@ class SortedList<E> extends DelegatingList<E> {
   ///
   /// The first time an object [:o:] is encountered so that [:compare(:o:, element):],
   /// the index of [:o:] is returned.
+  ///
   ///     SortedList<String> values = SortedList<String>();
   ///     values.addAll(['foo', 'bar', 'baz', 'foo', 'bar']);
-  ///     print(values.lastIndexOf('bar)); // 1
+  ///     print(values.lastIndexOf('bar')); // 1
   ///
   /// If [end] is not provided, this method searches from the end of the
   /// list.
   ///
-  ///     print(notes.lastIndexOf('baz'));  // 4
+  ///     print(values.lastIndexOf('baz'));  // 4
   ///
   /// Returns -1 if [element] is not found.
   ///
-  ///     notes.lastIndexOf('something');  // -1
+  ///     values.lastIndexOf('something');  // -1
 
   @override
   int lastIndexOf(E element, [int end]) {
