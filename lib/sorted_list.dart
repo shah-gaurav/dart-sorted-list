@@ -82,21 +82,8 @@ class SortedList<E> extends DelegatingList<E> {
   /// Its more efficient than calling [add] multiple times for large amounts of items.
   @override
   void addAll(Iterable<E> iterable) {
-    final list = iterable.toList();
-    list.sort(_compare);
-    var index = 0;
-    if (length > 0) {
-      // merge the two sorted lists with merge sort logic
-      for (var i = 0; i < length && index < list.length; i++) {
-        final comp = _compare(this[i], list[index]);
-        if (comp >= 0) {
-          super.insert(i, list[index]);
-          index++;
-        }
-      }
-    } else {
-      super.addAll(list);
-    }
+    super.addAll(iterable);
+    super.sort(_compare);
   }
 
   /// Returns true if this list contains an element equal to [element]
