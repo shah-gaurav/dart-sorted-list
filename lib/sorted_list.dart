@@ -108,7 +108,7 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   bool contains(Object element) {
     if (element is E) {
-      return binarySearch(this, element, compare: _compare) > 0;
+      return binarySearch(this, element, compare: _compare) != -1;
     } else {
       return super.contains(element);
     }
