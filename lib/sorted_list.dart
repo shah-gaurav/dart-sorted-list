@@ -47,8 +47,8 @@ class SortedList<E> extends DelegatingList<E> {
   ///     print(sortedList); // [null, 2, 7, 10]
   factory SortedList.nullable({
     bool nullLast = true,
-    Iterable<E> elements,
-    Comparator<E> compare,
+    Iterable<E>? elements,
+    Comparator<E>? compare,
   }) {
     final defaultA = nullLast ? 1 : -1;
     final defaultB = nullLast ? -1 : 1;
