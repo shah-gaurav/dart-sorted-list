@@ -14,16 +14,16 @@ class SortedList<E> extends DelegatingList<E> {
   ///
   /// [compare] is used to determine the sort order of the elements.
   /// The [Comparable.compare] function is used by default.
-  SortedList([Comparator<E> compare])
-      : _compare = compare ?? Comparable.compare,
+  SortedList([Comparator<E>? compare])
+      : _compare = compare ?? Comparable.compare as Comparator<E>,
         super(<E>[]);
 
   /// Creates a [SortedList] that contains all the elements of [elements]
   ///
   /// [compare] is used to determine the sort order of the elements, if [null], [Comparable.compare] is used
   factory SortedList.from({
-    Iterable<E> elements,
-    Comparator<E> compare,
+    required Iterable<E> elements,
+    Comparator<E>? compare,
   }) =>
       SortedList(compare)..addAll(elements);
 
@@ -93,7 +93,7 @@ class SortedList<E> extends DelegatingList<E> {
   /// The equality used to determine whether [element] is equal to an element of
   /// the iterable is defined by the [compare] function of this list
   @override
-  bool contains(Object element) {
+  bool contains(Object? element) {
     if (element is E) {
       return binarySearch(this, element, compare: _compare) != -1;
     } else {
@@ -160,7 +160,7 @@ class SortedList<E> extends DelegatingList<E> {
   ///     values.lastIndexOf('something');  // -1
 
   @override
-  int lastIndexOf(E element, [int end]) {
+  int lastIndexOf(E element, [int? end]) {
     final rangeEnd = end == null || end > length ? length : end;
     var min = 0;
     var max = rangeEnd;
@@ -235,7 +235,7 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not supported since it does not allow the list to stay ordered, consider using the AddAll method.')
   @override
-  void fillRange(int start, int end, [E fillValue]) {
+  void fillRange(int start, int end, [E? fillValue]) {
     throw UnsupportedError(
         'Cannot modify multiple elements at a specific position in a sorted list.');
   }
@@ -243,7 +243,7 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not necessary, the list already auto sorts itself. The `compare` parameter will not be used if this method is called, instead will be used the `compareFunction`, which was passed to the constructor as a parameter.')
   @override
-  void sort([int compare(E a, E b)]) {
+  void sort([int compare(E a, E b)?]) {
     super.sort(_compare);
   }
 
@@ -258,7 +258,7 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not supported since it does not allow the list to stay ordered.')
   @override
-  void shuffle([Random random]) {
+  void shuffle([Random? random]) {
     throw UnsupportedError('Cannot shuffle elements in a sorted list.');
   }
 }

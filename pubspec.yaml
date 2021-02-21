@@ -5,7 +5,7 @@ author: Gaurav Shah <shahgaurav@yahoo.com>
 homepage: https://github.com/shah-gaurav/dart-sorted-list
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.12.0-0 <3.0.0'
 
 dependencies:
-  collection: ^1.14.11
+  collection: ^1.15.0
