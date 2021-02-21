@@ -6,7 +6,7 @@ import 'package:collection/collection.dart';
 
 /// A list capable of keeping itself sorted according to its compare function
 ///
-///
+/// Because [Comparable.compare] takes non-nullable parameters, you must define a custom `compare` function or use [SortedList.nullable] to use a list that can hold null items
 class SortedList<E> extends DelegatingList<E> {
   final Comparator<E> _compare;
 
@@ -26,6 +26,45 @@ class SortedList<E> extends DelegatingList<E> {
     Comparator<E> compare,
   }) =>
       SortedList(compare)..addAll(elements);
+
+  /// Creates a [SortedList] that accepts null items.
+  ///
+  /// [nullLast] is used to define how the default [compare] function should behave
+  ///
+  /// Specify [compare] to use a custom function to compare items.
+  /// In that case, specifying [nullLast] is not necessary.
+  ///
+  /// The use of this constructor is recommended if this [SortedList] can contain nullable elements, since [Comparable.compare] does not accept nullable arguments
+  ///
+  ///
+  /// Example:
+  ///
+  ///     // Sorts null items at first place
+  ///     final sortedList = SortedList<int>.nullable(
+  ///       nullLast: false,
+  ///       elements: [10, null, 2, 7],
+  ///     );
+  ///     print(sortedList); // [null, 2, 7, 10]
+  factory SortedList.nullable({
+    bool nullLast = true,
+    Iterable<E> elements,
+    Comparator<E> compare,
+  }) {
+    final defaultA = nullLast ? 1 : -1;
+    final defaultB = nullLast ? -1 : 1;
+    int nullableComparator(E a, E b) {
+      return a == null
+          ? defaultA
+          : b == null
+              ? defaultB
+              : (a as Comparable).compareTo(b);
+    }
+
+    if (elements == null) {
+      return SortedList(nullableComparator);
+    }
+    return SortedList(nullableComparator)..addAll(elements);
+  }
 
   /// Finds the index where [value] should be inserted
   int _findInsertionIndex(E value) {
