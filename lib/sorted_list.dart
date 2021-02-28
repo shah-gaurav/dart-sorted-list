@@ -61,9 +61,9 @@ class SortedList<E> extends DelegatingList<E> {
     }
 
     if (elements == null) {
-      return SortedList(nullableComparator);
+      return SortedList(compare ?? nullableComparator);
     }
-    return SortedList(nullableComparator)..addAll(elements);
+    return SortedList(compare ?? nullableComparator)..addAll(elements);
   }
 
   /// Finds the index where [value] should be inserted
