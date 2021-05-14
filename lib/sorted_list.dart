@@ -15,7 +15,7 @@ class SortedList<E> extends DelegatingList<E> {
   /// [compare] is used to determine the sort order of the elements.
   /// The [Comparable.compare] function is used by default.
   SortedList([Comparator<E> compare])
-      : _compare = compare ?? Comparable.compare,
+      : _compare = compare ?? Comparable.compare as Comparator<E>,
         super(<E>[]);
 
   /// Creates a [SortedList] that contains all the elements of [elements]
@@ -282,7 +282,7 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not necessary, the list already auto sorts itself. The `compare` parameter will not be used if this method is called, instead will be used the `compareFunction`, which was passed to the constructor as a parameter.')
   @override
-  void sort([int compare(E a, E b)]) {
+  void sort([int Function(E a, E b) compare]) {
     super.sort(_compare);
   }
 
