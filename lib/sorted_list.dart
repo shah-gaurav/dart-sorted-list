@@ -7,7 +7,7 @@ class SortedList<E> extends DelegatingList<E> {
 
   List<E> get _listBase => super.toList();
 
-  SortedList([int Function(E a, E b) compareFunction]) : super(<E>[]) {
+  SortedList([int Function(E a, E b)? compareFunction]) : super(<E>[]) {
     this._compareFunction = compareFunction;
   }
 
