@@ -1,7 +1,6 @@
 name: sorted_list
 description: A dart sorted list that keeps its elements ordered in the specified sequence.
 version: 1.0.0
-author: Gaurav Shah <shahgaurav@yahoo.com>
 homepage: https://github.com/shah-gaurav/dart-sorted-list
 
 environment:
