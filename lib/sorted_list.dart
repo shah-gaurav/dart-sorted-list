@@ -3,11 +3,11 @@ library sorted_list;
 import 'package:collection/collection.dart';
 
 class SortedList<E> extends DelegatingList<E> {
-  int Function(E a, E b) _compareFunction;
+  int Function(E a, E b)? _compareFunction;
 
   List<E> get _listBase => super.toList();
 
-  SortedList(int Function(E a, E b) compareFunction) : super(<E>[]) {
+  SortedList([int Function(E a, E b) compareFunction]) : super(<E>[]) {
     this._compareFunction = compareFunction;
   }
 
