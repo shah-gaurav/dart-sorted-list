@@ -27,12 +27,9 @@ class SortedList<E> extends DelegatingList<E> {
   }) =>
       SortedList(compare)..addAll(elements);
 
-  /// Creates a [SortedList] that accepts null items.
+  /// Creates a [SortedList] with a default comparator that handles null items.
   ///
   /// [nullLast] is used to define how the default [compare] function should behave
-  ///
-  /// Specify [compare] to use a custom function to compare items.
-  /// In that case, specifying [nullLast] is not necessary.
   ///
   /// The use of this constructor is recommended if this [SortedList] can contain nullable elements, since [Comparable.compare] does not accept nullable arguments
   ///
@@ -48,7 +45,6 @@ class SortedList<E> extends DelegatingList<E> {
   factory SortedList.nullable({
     bool nullLast = true,
     Iterable<E>? elements,
-    Comparator<E>? compare,
   }) {
     final defaultA = nullLast ? 1 : -1;
     final defaultB = nullLast ? -1 : 1;
@@ -60,10 +56,9 @@ class SortedList<E> extends DelegatingList<E> {
               : (a as Comparable).compareTo(b);
     }
 
-    if (elements == null) {
-      return SortedList(compare ?? nullableComparator);
-    }
-    return SortedList(compare ?? nullableComparator)..addAll(elements);
+    final sortedList = SortedList(nullableComparator);
+    if (elements != null) sortedList.addAll(elements);
+    return sortedList;
   }
 
   /// Finds the index where [value] should be inserted
