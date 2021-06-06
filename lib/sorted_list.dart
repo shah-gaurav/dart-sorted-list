@@ -49,11 +49,13 @@ class SortedList<E> extends DelegatingList<E> {
     final defaultA = nullLast ? 1 : -1;
     final defaultB = nullLast ? -1 : 1;
     int nullableComparator(E a, E b) {
-      return a == null
-          ? defaultA
-          : b == null
-              ? defaultB
-              : (a as Comparable).compareTo(b);
+      return a == null && b == null
+          ? 0
+          : a == null
+              ? defaultA
+              : b == null
+                  ? defaultB
+                  : (a as Comparable).compareTo(b);
     }
 
     final sortedList = SortedList(nullableComparator);
