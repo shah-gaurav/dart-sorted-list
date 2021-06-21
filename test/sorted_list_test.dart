@@ -74,4 +74,11 @@ void main() {
     var list = [9, 6, 11];
     expect(sortedList + list, equals([0, 1, 2, 5, 6, 9, 11]));
   });
+
+  test("Add on last", () {
+    var sortedList = SortedList<int>();
+    sortedList.addAll([0, 1, 2]);
+    sortedList.add(3);
+    expect(sortedList.last, equals(3));
+  });
 }
