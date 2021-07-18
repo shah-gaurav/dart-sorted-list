@@ -1,6 +1,6 @@
 library sorted_list;
 
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
 
@@ -197,9 +197,8 @@ class SortedList<E> extends DelegatingList<E> {
 
   @override
   int lastIndexOf(E element, [int? end]) {
-    final rangeEnd = end == null || end > length ? length : end;
     var min = 0;
-    var max = rangeEnd;
+    var max = end == null || end > length ? length : end;
     // optimization for best case scenario
     if (max < length && _compare(this[max], element) == 0) return max;
     var found = false;
@@ -294,7 +293,7 @@ class SortedList<E> extends DelegatingList<E> {
   @Deprecated(
       'This method is not supported since it does not allow the list to stay ordered.')
   @override
-  void shuffle([Random? random]) {
+  void shuffle([math.Random? random]) {
     throw UnsupportedError('Cannot shuffle elements in a sorted list.');
   }
 }
