@@ -155,8 +155,7 @@ class SortedList<E> extends DelegatingList<E> {
   ///
   @override
   int indexOf(E element, [int start = 0]) {
-    final rangeStart = start >= length ? length - 1 : start;
-    var min = rangeStart;
+    var min = math.min(start, length - 1);
     var max = length;
     // optimization for best case scenario
     if (_compare(this[min], element) == 0) return min;
@@ -198,7 +197,7 @@ class SortedList<E> extends DelegatingList<E> {
   @override
   int lastIndexOf(E element, [int? end]) {
     var min = 0;
-    var max = end == null || end > length ? length : end;
+    var max = math.min(end ?? length, length);
     // optimization for best case scenario
     if (max < length && _compare(this[max], element) == 0) return max;
     var found = false;
