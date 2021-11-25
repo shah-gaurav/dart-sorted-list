@@ -8,7 +8,18 @@ import 'package:collection/collection.dart';
 ///
 /// Because [Comparable.compare] takes non-nullable parameters, you must define a custom `compare` function or use [SortedList.nullable] to use a list that can hold null items
 class SortedList<E> extends DelegatingList<E> {
-  final Comparator<E> _compare;
+  Comparator<E> _compare;
+
+  /// The comparator of this [SortedList]
+  ///
+  /// This function determines the order of the items
+  /// inside this [SortedList]. Setting it will reorder the list
+  /// according to its new [compare] function
+  Comparator<E> get compare => _compare;
+  set compare(Comparator<E> value) {
+    _compare = value;
+    super.sort(_compare);
+  }
 
   /// Creates a list that keeps itself sorted.
   ///
