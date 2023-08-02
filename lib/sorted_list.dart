@@ -32,8 +32,8 @@ class SortedList<E> extends DelegatingList<E> {
   /// Creates a [SortedList] that contains all the elements of [elements]
   ///
   /// [compare] is used to determine the sort order of the elements, if [null], [Comparable.compare] is used
-  factory SortedList.from({
-    required Iterable<E> elements,
+  factory SortedList.from(
+    Iterable<E> elements, {
     Comparator<E>? compare,
   }) =>
       SortedList(compare)..addAll(elements);
